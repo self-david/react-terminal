@@ -102,7 +102,6 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "react-device-detect": "2.1.2"
+    "prop-types": "^15.7.2"
   }
 }

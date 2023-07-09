@@ -1,6 +1,5 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { isMobile } from "react-device-detect";
 
 import { StyleContext } from "../contexts/StyleContext";
 import { ThemeContext } from "../contexts/ThemeContext";
@@ -11,11 +10,11 @@ import Editor from "./Editor";
 
 export default function Terminal(props: any) {
   const wrapperRef = React.useRef(null);
-  const [consoleFocused, setConsoleFocused] = React.useState(!isMobile);
+  const [consoleFocused, setConsoleFocused] = React.useState(true);
   const style = React.useContext(StyleContext);
   const themeStyles = React.useContext(ThemeContext);
 
-  useClickOutsideEvent(wrapperRef, consoleFocused, setConsoleFocused);
+  useClickOutsideEvent(wrapperRef, setConsoleFocused);
 
   // Get all props destructively
   const {

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { isMobile } from "react-device-detect";
 
 import { StyleContext } from "../contexts/StyleContext";
 import { ThemeContext } from "../contexts/ThemeContext";
@@ -127,7 +126,7 @@ export const useBufferedContent = (
         const [command, ...rest] = text.trim().split(" ");
         let output = "";
 
-        if (command === "clear" || command === "limpiar") {
+        if (command === "limpiar") {
           setBufferedContent("");
           setCurrentText("");
           setProcessCurrentLine(false);
@@ -223,15 +222,6 @@ export const useCurrentLine = (
 
   React.useEffect(
     () => {
-      if (!isMobile) {
-
-      }
-    },
-    [consoleFocused]
-  );
-
-  React.useEffect(
-    () => {
       if (!processCurrentLine) {
         return;
       }
@@ -248,25 +238,8 @@ export const useCurrentLine = (
     }
   }, []);
 
-  const mobileInput = isMobile && enableInput ? (
-    <div className={style.mobileInput}>
-      <input
-        type="text"
-        autoComplete="off"
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck="false"
-        value={editorInput}
-        onChange={(event) => setEditorInput(event.target.value)}
-        ref={mobileInputRef}
-        data-testid="editor-input"
-      />
-    </div>
-  ) : null;
-
   const currentLine = !processCurrentLine ? (
     <>
-      {mobileInput}
       <span style={{ color: themeStyles.themePromptColor }}>{prompt}</span>
       <div className={style.lineText}>
         <span className={style.preWhiteSpace}>{beforeCaretText}</span>
@@ -279,16 +252,13 @@ export const useCurrentLine = (
       </div>
     </>
   ) : (
-    <>
-      {mobileInput}
-      <div className={style.lineText}>
+    <div className={style.lineText}>
         {consoleFocused && caret ? ( // if caret isn't true, caret won't be displayed
           <span className={style.caret}>
             <span className={style.caretAfter} style={{ background: themeStyles.themeColor }} />
           </span>
         ) : null}
-      </div>
-    </>
+    </div>
   );
 
   useEditorInput(
