@@ -2,11 +2,13 @@ import * as React from "react";
 
 export const TerminalContext = React.createContext(null);
 
-export const TerminalContextProvider = (props: any) => {
+export function TerminalContextProvider(props: any) {
   const { children } = props;
   const [bufferedContent, setBufferedContent] = React.useState("");
   const [commandsHistory, setCommandsHistory] = React.useState([]);
   const [historyPointer, setHistoryPointer] = React.useState(null);
+  const [processCurrentLine, setProcessCurrentLine] = React.useState(false);
+  const [editorInput, setEditorInput] = React.useState(false);
 
   React.useEffect(() => {
     setHistoryPointer(commandsHistory.length);
@@ -54,13 +56,17 @@ export const TerminalContextProvider = (props: any) => {
         setBufferedContent,
         appendCommandToHistory,
         getPreviousCommand,
-        getNextCommand
+        getNextCommand,
+        processCurrentLine,
+        setProcessCurrentLine,
+        editorInput,
+        setEditorInput,
       }}
     >
       {children}
     </TerminalContext.Provider>
   );
-};
+}
 
 export default {
   TerminalContext,
